@@ -1,0 +1,62 @@
+README FILE
+Project No : 1
+Author(s): Anand Kulkarni
+Course : CS557
+
+PURPOSE:
+[
+  Implement a simple file service api using thrift framework.
+]
+
+TO COMPILE:
+
+[
+  Steps for program compilation :
+  1. Compile the source code using following command:
+	make LIB_PATH=<Thrift libraries location> THRIFT_PATH=<Thrift executable location>
+]
+
+TO RUN:
+
+[
+  Steps for program execution :
+  1. Execute following commands to run the client and server.
+     For example,
+     Run client by executing following command:
+     java -jar Client <hostname> <port number> --operation <operation_name> --filename <filename> --user <username>
+     Run server by executing following command:
+     java -jar Server <port number>
+]
+
+SAMPLE OUTPUT:
+
+[
+  Server output:
+  akulka15@remote01:~/distributed systems/project1/final test/akulka15-project1$ java -jar Server 9000
+  Hostname: remote01.cs.binghamton.edu
+  PortNumber: 9000
+
+  Client output:
+  akulka15@remote03:~/distributed systems/project1/client1/akulka15-project1$ java -jar Client remote01.cs.binghamton.edu 9000 --operation write --filename test1.txt --user guest
+  {"1":{"i32":1}}
+
+  akulka15@remote03:~/distributed systems/project1/client1/akulka15-project1$ java -jar Client remote01.cs.binghamton.edu 9000 --operation read --filename test1.txt --user guest
+  {"1":{"rec":{"1":{"str":"test1.txt"},"2":{"i64":1475807692068},"3":{"i64":1475807692068},"4":{"i32":0},"5":{"str":"guest"},"6":{"i32":11},"7":{"str":"b10a8db164e0754105b7a99be72e3fe5"}}},"2": {"str":"Hello World"}}
+
+  akulka15@remote03:~/distributed systems/project1/client1/akulka15-project1$ java -jar Client remote01.cs.binghamton.edu 9000 --operation list --filename test1.txt --user guest
+  ["rec",1,{"1":{"str":"test1.txt"},"2":{"i64":1475807692068},"3":{"i64":1475807692068},"4":{"i32":0},"5":{"str":"guest"},"6":{"i32":11},"7":{"str":"b10a8db164e0754105b7a99be72e3fe5"}}]
+
+  akulka15@remote03:~/distributed systems/project1/client1/akulka15-project1$ java -jar Client remote01.cs.binghamton.edu 9000 --operation read --filename test2.txt --user guest
+  {"1":{"str":"File does not exists."}}
+
+  akulka15@remote03:~/distributed systems/project1/client1/akulka15-project1$ java -jar Client remote01.cs.binghamton.edu 9000 --operation list --filename test1.txt --user guest1
+  {"1":{"str":"Owner does not exists."}}
+
+]
+
+Implementation Details:
+
+[
+  1. File metadata is stored in the memory.
+  2. File contents are stored in a directory called 'www'. This directory is created in a directory from where the server is run.
+]

@@ -1,0 +1,78 @@
+<project name="akulka15-project1" default="compile" basedir=".">
+
+  <description>Thrift Java Tutorial</description>
+
+  <property name="src" location="src" />
+  <property name="gen" location="gen-java" />
+  <property name="lib" value="${LIB_PATH}"/>
+  <property name="thrift" value="${THRIFT_PATH}"/>
+  <property name="build" location="build" />
+  <property name="target.dir" location="." />
+  <path id="libs.classpath">
+    <fileset dir="${lib}">
+    </fileset>
+  </path>
+  <path id="build.classpath">
+    <path refid="libs.classpath" />
+    <pathelement path="${gen}" />
+  </path>
+  
+  <target name="init">
+    <tstamp />
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/log"/>
+  </target>
+
+  <target name="compile" depends="init, generate">
+    <javac srcdir="${gen}"
+		includes="**"
+		excludes="**/package.html"
+		destdir="${build}"
+		includeantruntime="false"
+		classpath="${build}"
+		classpathref = "build.classpath" 
+		debug="on"
+		optimize="on"
+		deprecation="off"/>
+    <javac srcdir="${src}"
+		includes="**"
+		excludes="**/package.html"
+		includeantruntime="false"
+		destdir="${build}"
+		classpath="${build}"
+		classpathref = "libs.classpath" 
+		debug="on"
+		optimize="on"
+		deprecation="off"/>
+  </target>
+
+  <target name="generate">
+    <!-- Generate the thrift gen-java source -->
+    <exec executable="${thrift}" failonerror="true">
+      <arg line="--gen java -r ./fileservice.thrift"/>
+    </exec>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${target.dir}/Client.jar" basedir="${build}" excludes="**/server/">
+	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
+	<manifest>
+		<attribute name="Main-Class" value="client.Client"/>
+	</manifest>			
+    </jar>
+    <jar destfile="${target.dir}/Server.jar" basedir="${build}" excludes="**/client/">
+	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
+	<manifest>
+		<attribute name="Main-Class" value="server.Server"/>
+	</manifest>			
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}" />
+    <delete dir="${gen}" />
+    <delete file="Client.jar" />
+    <delete file="Server.jar" />
+  </target>
+
+</project>
