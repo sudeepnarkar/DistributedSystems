@@ -5,6 +5,13 @@ import java.security.NoSuchAlgorithmException;
 
 import client.HashGeneratorI;
 
+/**
+ * This class contains the logic to generate hash value suing MD5 hashing
+ * method.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class MD5HashGenerator implements HashGeneratorI {
 
 	private MessageDigest md = null;
@@ -33,11 +40,5 @@ public class MD5HashGenerator implements HashGeneratorI {
 			}
 		}
 		return hashString.toString();
-	}
-
-	public static void main(String[] args) {
-		MD5HashGenerator hashGenerator = new MD5HashGenerator();
-		String hash = hashGenerator.generate("example contents\n");
-		System.out.println(hash);
 	}
 }

@@ -4,6 +4,13 @@ import client.CommandLineArgumentParserI;
 import client.beans.InputParams;
 import client.constants.CliArgs;
 
+/**
+ * This class contains logic to parse command line arguments using simple string
+ * operations.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class SimpleCliParser implements CommandLineArgumentParserI {
 
 	private String[] commandLineArguments = null;

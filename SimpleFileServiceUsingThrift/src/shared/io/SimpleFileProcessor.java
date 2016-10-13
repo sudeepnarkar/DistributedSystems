@@ -9,6 +9,13 @@ import java.io.IOException;
 
 import shared.FileProcessorI;
 
+/**
+ * This class contains logic to read and write to a file using BufferedReader
+ * and BufferedWriter.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class SimpleFileProcessor implements FileProcessorI {
 
 	@Override

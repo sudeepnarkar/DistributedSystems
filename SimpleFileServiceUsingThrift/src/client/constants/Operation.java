@@ -1,5 +1,12 @@
 package client.constants;
 
+/**
+ * This enum contains constants corresponding to all file service operations
+ * supported by this application.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public enum Operation {
 	READ("read"), WRITE("write"), LIST("list");
 	String value;

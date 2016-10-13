@@ -17,6 +17,12 @@ import fileService.FileStore;
 import fileService.FileStore.Processor;
 import shared.io.SimpleFileProcessor;
 
+/**
+ * Driver code for Client. Contains the main method.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class Server {
 
 	public static FileStoreHandler handler;
@@ -50,6 +56,13 @@ public class Server {
 		}
 	}
 
+	/**
+	 * Creates the simple connection.
+	 * 
+	 * @param processor
+	 *            FileStore processor instance
+	 * @param portNumber
+	 */
 	public static void simple(@SuppressWarnings("rawtypes") Processor processor, int portNumber) {
 		TServerTransport serverTransport = null;
 		try {
@@ -74,6 +87,9 @@ public class Server {
 		}
 	}
 
+	/**
+	 * This method creates a new empty directory with name "www".
+	 */
 	private static void initializeRootDirectory() {
 		File rootDir = new File("www");
 		rootDir.mkdir();
@@ -82,6 +98,12 @@ public class Server {
 		});
 	}
 
+	/**
+	 * Validate input arguments.
+	 * 
+	 * @param args
+	 *            arguments to validated.
+	 */
 	private static void validateInputArgs(String[] args) {
 		try {
 			int portNumber = Integer.parseInt(args[0]);

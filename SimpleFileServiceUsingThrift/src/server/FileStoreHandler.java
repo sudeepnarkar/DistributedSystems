@@ -19,6 +19,13 @@ import fileService.SystemException;
 import server.constants.Constants;
 import shared.FileProcessorI;
 
+/**
+ * This class contains the server side implemntation of all operations of file
+ * service api.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class FileStoreHandler implements FileStore.Iface {
 
 	private Map<String, Map<String, RFileMetadata>> ownerToRFileMap = null;
@@ -41,9 +48,6 @@ public class FileStoreHandler implements FileStore.Iface {
 
 	@Override
 	public StatusReport writeFile(RFile rFile) throws SystemException, TException {
-		// TODO: Should use hash to check if the contents of the file have
-		// changed ? That would save the file io in case resource is not
-		// modified.
 		Path filePath = Paths.get(rFile.getMeta().getFilename());
 		String serverFileUri = String.format(SERVER_FILE_URI_PAT, rFile.getMeta().getOwner(), filePath.getFileName());
 		if (ownerToRFileMap.get(rFile.getMeta().getOwner()) == null) {
@@ -109,6 +113,14 @@ public class FileStoreHandler implements FileStore.Iface {
 		return null;
 	}
 
+	/**
+	 * This method contains logic to throw system exception with the given
+	 * message.
+	 * 
+	 * @param message
+	 *            message to be included in the exception.
+	 * @throws SystemException
+	 */
 	private void throwSystemException(String message) throws SystemException {
 		SystemException exception = new SystemException();
 		exception.setMessage(message);

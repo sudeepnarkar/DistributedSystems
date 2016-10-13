@@ -21,6 +21,12 @@ import fileService.StatusReport;
 import fileService.SystemException;
 import shared.FileProcessorI;
 
+/**
+ * This class contains the logic make RPC calls based on the type of operation.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class ClientProcessor {
 
 	private HashGeneratorI hashGenerator = null;
@@ -34,6 +40,15 @@ public class ClientProcessor {
 		this.validator = new InputArgumentsValidator();
 	}
 
+	/**
+	 * This method processes each client request.
+	 * 
+	 * @param client
+	 *            FileStore Client instance used to delegate client request to
+	 *            underlying RPC mechanism.
+	 * @param inputParams
+	 *            contains input parameters provided through command line.
+	 */
 	public void process(FileStore.Client client, InputParams inputParams) {
 		try {
 			if (validator.validateIfNull(CliArgs.OPERATION, inputParams.getOperation())) {

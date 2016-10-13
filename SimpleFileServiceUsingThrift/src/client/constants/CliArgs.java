@@ -1,5 +1,12 @@
 package client.constants;
 
+/**
+ * This enum contains constants corresponding to input parameters expected at
+ * the command line.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public enum CliArgs {
 	OPERATION("operation"), USER("user"), FILENAME("filename");
 	private String value = null;

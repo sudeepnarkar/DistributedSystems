@@ -1,5 +1,11 @@
 package client.beans;
 
+/**
+ * This class contains all command line inputs.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class InputParams {
 	private String user = null;
 	private String serverHostName = null;

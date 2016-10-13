@@ -13,6 +13,12 @@ import client.util.InputArgumentsValidator;
 import fileService.FileStore;
 import shared.io.SimpleFileProcessor;
 
+/**
+ * Driver code for Client. Contains the main method.
+ * 
+ * @author anandkulkarni
+ *
+ */
 public class Client {
 
 	private static ClientProcessor processor = null;
