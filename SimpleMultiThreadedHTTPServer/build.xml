@@ -1,0 +1,35 @@
+<project name="akulka15-project0" default="compile" basedir=".">
+
+<property name="BUILD.compiler" value="modern"/>
+<property name="src" value="src"/>
+<property name="build" value="build"/>
+<property name="target.dir" value="./"/>
+
+<target name="prepare">
+  <mkdir dir="${build}"/>
+</target>
+
+<target name="jar" depends="compile">
+  <jar destfile="${target.dir}/Server.jar" basedir="${build}">
+    <manifest>
+      <attribute name="Main-Class" value="cs557.httpServer.driver.Driver" />
+    </manifest>			
+  </jar>
+</target>
+
+<target name="compile" depends="prepare">
+   <javac srcdir="${src}"
+   includes="cs557/**"
+   excludes="**/package.html"
+   destdir="${build}"
+   classpath="${build}"
+   debug="on"
+   optimize="on"
+   deprecation="off"/>
+</target>
+
+<target name="clean">
+  <delete dir="${build}"/>
+  <delete file="Server.jar"/>
+</target>
+</project>
