@@ -7,8 +7,3 @@ $(TARGET):
 
 clean:		
 		ant -emacs $(VERBOSE) clean
-
-
-tarzip:
-		ant -emacs $(VERBOSE) tarzip
-
