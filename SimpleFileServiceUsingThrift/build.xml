@@ -1,6 +1,4 @@
-<project name="akulka15-project1" default="compile" basedir=".">
-
-  <description>Thrift Java Tutorial</description>
+<project name="SimpleFileServiceUsingThrift" default="compile" basedir=".">
 
   <property name="src" location="src" />
   <property name="gen" location="gen-java" />
@@ -47,7 +45,6 @@
   </target>
 
   <target name="generate">
-    <!-- Generate the thrift gen-java source -->
     <exec executable="${thrift}" failonerror="true">
       <arg line="--gen java -r ./fileservice.thrift"/>
     </exec>

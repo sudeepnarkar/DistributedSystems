@@ -1,4 +1,4 @@
-<project name="akulka15-project0" default="compile" basedir=".">
+<project name="SimpleMultiThreadedHTTPServer" default="compile" basedir=".">
 
 <property name="BUILD.compiler" value="modern"/>
 <property name="src" value="src"/>
