@@ -1,5 +1,4 @@
-<project name="SimpleFileServiceUsingThrift" default="compile" basedir=".">
-
+<project name="Chandy-Lamport_Global_Snapshot_Algorithm" default="compile" basedir=".">
   <property name="src" location="src" />
   <property name="gen" location="gen-java" />
   <property name="lib" value="${LIB_PATH}"/>
@@ -18,7 +17,6 @@
   <target name="init">
     <tstamp />
     <mkdir dir="${build}"/>
-    <mkdir dir="${build}/log"/>
   </target>
 
   <target name="compile" depends="init, generate">
@@ -46,21 +44,21 @@
 
   <target name="generate">
     <exec executable="${thrift}" failonerror="true">
-      <arg line="--gen java -r ./fileservice.thrift"/>
+      <arg line="--gen java -r ./bank.thrift"/>
     </exec>
   </target>
 
   <target name="jar" depends="compile">
-    <jar destfile="${target.dir}/Client.jar" basedir="${build}" excludes="**/server/">
+    <jar destfile="${target.dir}/controller.jar" basedir="${build}" excludes="**/server/">
 	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
 	<manifest>
-		<attribute name="Main-Class" value="client.Client"/>
+		<attribute name="Main-Class" value="controller.Controller"/>
 	</manifest>			
     </jar>
-    <jar destfile="${target.dir}/Server.jar" basedir="${build}" excludes="**/client/">
+    <jar destfile="${target.dir}/branch.jar" basedir="${build}" excludes="**/controller/">
 	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
 	<manifest>
-		<attribute name="Main-Class" value="server.Server"/>
+		<attribute name="Main-Class" value="server.BranchServer"/>
 	</manifest>			
     </jar>
   </target>
@@ -68,8 +66,9 @@
   <target name="clean">
     <delete dir="${build}" />
     <delete dir="${gen}" />
-    <delete file="Client.jar" />
-    <delete file="Server.jar" />
+    <delete file="controller.jar" />
+    <delete file="branch.jar" />
+    <delete file="Log.log" />
   </target>
 
 </project>

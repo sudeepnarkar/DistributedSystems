@@ -1,4 +1,4 @@
-<project name="SimpleMultiThreadedHTTPServer" default="compile" basedir=".">
+<project name="Simple_Multi_Threaded_HTTP_Server" default="compile" basedir=".">
 
 <property name="BUILD.compiler" value="modern"/>
 <property name="src" value="src"/>
