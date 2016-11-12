@@ -1,0 +1,74 @@
+<project name="Chandy-LamportAlgorithm" default="compile" basedir=".">
+  <property name="src" location="src" />
+  <property name="gen" location="gen-java" />
+  <property name="lib" value="${LIB_PATH}"/>
+  <property name="thrift" value="${THRIFT_PATH}"/>
+  <property name="build" location="build" />
+  <property name="target.dir" location="." />
+  <path id="libs.classpath">
+    <fileset dir="${lib}">
+    </fileset>
+  </path>
+  <path id="build.classpath">
+    <path refid="libs.classpath" />
+    <pathelement path="${gen}" />
+  </path>
+  
+  <target name="init">
+    <tstamp />
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init, generate">
+    <javac srcdir="${gen}"
+		includes="**"
+		excludes="**/package.html"
+		destdir="${build}"
+		includeantruntime="false"
+		classpath="${build}"
+		classpathref = "build.classpath" 
+		debug="on"
+		optimize="on"
+		deprecation="off"/>
+    <javac srcdir="${src}"
+		includes="**"
+		excludes="**/package.html"
+		includeantruntime="false"
+		destdir="${build}"
+		classpath="${build}"
+		classpathref = "libs.classpath" 
+		debug="on"
+		optimize="on"
+		deprecation="off"/>
+  </target>
+
+  <target name="generate">
+    <exec executable="${thrift}" failonerror="true">
+      <arg line="--gen java -r ./bank.thrift"/>
+    </exec>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${target.dir}/controller.jar" basedir="${build}" excludes="**/server/">
+	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
+	<manifest>
+		<attribute name="Main-Class" value="controller.Controller"/>
+	</manifest>			
+    </jar>
+    <jar destfile="${target.dir}/branch.jar" basedir="${build}" excludes="**/controller/">
+	<zipgroupfileset dir="${lib}" includes="**/*.jar" />
+	<manifest>
+		<attribute name="Main-Class" value="server.BranchServer"/>
+	</manifest>			
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}" />
+    <delete dir="${gen}" />
+    <delete file="controller.jar" />
+    <delete file="branch.jar" />
+    <delete file="Log.log" />
+  </target>
+
+</project>

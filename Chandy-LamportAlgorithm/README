@@ -1,0 +1,121 @@
+README FILE
+Project No : 2
+Author(s): Anand Kulkarni
+Course : CS557
+
+PURPOSE:
+[
+  Implement a Chandy-Lamport algorithm to be able to capture snapshot of a distributed banking application.
+]
+
+TO COMPILE:
+
+[
+  Steps for program compilation :
+  1. Compile the source code using following command:
+	make LIB_PATH=<Thrift libraries location> THRIFT_PATH=<Thrift executable location>
+	[Note: It should generate two executables: 
+  	 1. branch.jar 
+	 2. controller.jar 
+	 within the same directory i.e. 'akulka15-project2' ]
+       *[Note: If you plan to generate thrift sources again, please make sure to use the thrift file provided with this sumbmission as it contains a small change (at line 1). ]
+]
+
+TO RUN:
+
+[
+  Steps for program execution :
+  1. Execute following commands to run the BranchServer and Controller.
+     Run BranchServer by executing following command:
+     java -jar branch.jar <branchname> <port number>
+     eg. java -jar branch.jar branch1 9000
+     
+     Run Controller by executing following command:
+     java -jar controller.jar <amount> <filename> 
+     eg. java -jar controller.jar 4000 branches.txt
+
+    *[Note: Snapshot is captured every 35 seconds.] 
+     [Note: If you run all branches and controller from different(unique) locations (i.e. different directories in a file system, a Log.log file is generated at each location 
+      which can be used to verify the output. Otherwise, snapshot details are displayed on the terminal from where a controller is run.)]
+
+]
+
+SAMPLE OUTPUT:
+
+[
+Branch1:
+	remote02:~/distributed systems/project2/demo2/akulka15-project2> java -jar branch.jar branch1 9000
+	[Sat Nov 05 21:08:06 EDT 2016] OUTPUT: starting 'branch1' server...
+
+	[Sat Nov 05 21:08:06 EDT 2016] OUTPUT: ip address: 128.226.180.16
+----------------------------------------------------------------------------------------------------------------
+
+Branch2:
+	remote03:~/distributed systems/project2/demo2/akulka15-project2> java -jar branch.jar branch2 9001
+	[Sat Nov 05 21:08:12 EDT 2016] OUTPUT: starting 'branch2' server...
+
+	[Sat Nov 05 21:08:13 EDT 2016] OUTPUT: ip address: 128.226.180.165
+----------------------------------------------------------------------------------------------------------------
+
+Branch3:
+	remote04:~/distributed systems/project2/demo2/akulka15-project2> java -jar branch.jar branch3 9002
+	[Sat Nov 05 21:08:19 EDT 2016] OUTPUT: starting 'branch3' server...
+
+	[Sat Nov 05 21:08:19 EDT 2016] OUTPUT: ip address: 128.226.180.166
+----------------------------------------------------------------------------------------------------------------
+
+Branch4:
+	remote05:~/distributed systems/project2/demo2/akulka15-project2> java -jar branch.jar branch4 9003
+	[Sat Nov 05 21:08:24 EDT 2016] OUTPUT: starting 'branch4' server...
+
+	[Sat Nov 05 21:08:24 EDT 2016] OUTPUT: ip address: 128.226.180.167
+----------------------------------------------------------------------------------------------------------------
+
+Controller:
+
+	branches.txt
+	branch1 128.226.180.164 9000
+	branch2 128.226.180.165 9001
+	branch3 128.226.180.166 9002
+	branch4 128.226.180.167 9003
+	----------------------------------------------------------------------------------------------------------------
+
+	remote01:~/distributed systems/project2/demo2/akulka15-project2> java -jar controller.jar 4000 branches.txt
+	[Sat Nov 05 21:09:14 EDT 2016] OUTPUT: SnapShot ID: 1
+	branch1: balance: 980 | branch2-branch1 = {  }, branch3-branch1 = {  }, branch4-branch1 = { 10 }
+	branch2: balance: 1040 | branch1-branch2 = {  }, branch3-branch2 = {  }, branch4-branch2 = { 10 }
+	branch3: balance: 1010 | branch1-branch3 = {  }, branch2-branch3 = {  }, branch4-branch3 = {  }
+	branch4: balance: 950 | branch1-branch4 = {  }, branch2-branch4 = {  }, branch3-branch4 = {  }
+
+	[Sat Nov 05 21:09:49 EDT 2016] OUTPUT: SnapShot ID: 2
+	branch1: balance: 980 | branch2-branch1 = {  }, branch3-branch1 = {  }, branch4-branch1 = { 20 }
+	branch2: balance: 990 | branch1-branch2 = {  }, branch3-branch2 = {  }, branch4-branch2 = {  }
+	branch3: balance: 1100 | branch1-branch3 = {  }, branch2-branch3 = {  }, branch4-branch3 = {  }
+	branch4: balance: 910 | branch1-branch4 = {  }, branch2-branch4 = {  }, branch3-branch4 = {  }
+
+	[Sat Nov 05 21:10:24 EDT 2016] OUTPUT: SnapShot ID: 3
+	branch1: balance: 980 | branch2-branch1 = {  }, branch3-branch1 = {  }, branch4-branch1 = {  }
+	branch2: balance: 1000 | branch1-branch2 = {  }, branch3-branch2 = {  }, branch4-branch2 = {  }
+	branch3: balance: 1060 | branch1-branch3 = {  }, branch2-branch3 = {  }, branch4-branch3 = {  }
+	branch4: balance: 960 | branch1-branch4 = {  }, branch2-branch4 = {  }, branch3-branch4 = {  }
+
+	[Sat Nov 05 21:10:59 EDT 2016] OUTPUT: SnapShot ID: 4
+	branch1: balance: 990 | branch2-branch1 = {  }, branch3-branch1 = {  }, branch4-branch1 = { 30 }
+	branch2: balance: 950 | branch1-branch2 = {  }, branch3-branch2 = {  }, branch4-branch2 = {  }
+	branch3: balance: 1060 | branch1-branch3 = {  }, branch2-branch3 = {  }, branch4-branch3 = {  }
+	branch4: balance: 970 | branch1-branch4 = {  }, branch2-branch4 = {  }, branch3-branch4 = {  }
+
+	[Sat Nov 05 21:11:34 EDT 2016] OUTPUT: SnapShot ID: 5
+	branch1: balance: 1050 | branch2-branch1 = {  }, branch3-branch1 = {  }, branch4-branch1 = {  }
+	branch2: balance: 1020 | branch1-branch2 = {  }, branch3-branch2 = {  }, branch4-branch2 = {  }
+	branch3: balance: 1020 | branch1-branch3 = {  }, branch2-branch3 = {  }, branch4-branch3 = {  }
+	branch4: balance: 910 | branch1-branch4 = {  }, branch2-branch4 = {  }, branch3-branch4 = {  }
+	----------------------------------------------------------------------------------------------------------------
+
+]
+
+Implementation Details:
+
+[
+  NA.
+]
